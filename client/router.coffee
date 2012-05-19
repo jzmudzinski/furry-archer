@@ -1,9 +1,13 @@
 class ChatroomRouter extends Backbone.Router
   routes:
-    "/": "goHome"
+    "": "goHome"
     ":room_id": "setRoom"
-  goHome:
-    console.log "start"
+
+  goHome: ->
+    Session.set "room_id", null
+    this.navigate "", true
+    console.log "showing home page"
+
   setRoom: (room_id) ->
     Session.set "room_id", room_id
     this.navigate room_id, true

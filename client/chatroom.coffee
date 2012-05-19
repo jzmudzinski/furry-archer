@@ -3,7 +3,11 @@ Messages = new Meteor.Collection "messages"
 Users = new Meteor.Collection "users"
 
 Meteor.subscribe "rooms"
-Meteor.subscribe "messages"
+
+Meteor.autosubscribe ->
+  room_id = Session.get 'room_id'
+  Meteor.subscribe 'messages', room_id if room_id
+
 Session.set 'room_id', null
 
 Template.main.selected_room = ->
@@ -19,7 +23,6 @@ Template.roomboard.rooms = ->
 
 Template.room.events =
   'click .enter': ->
-    Session.set "room_id", this._id
     Router.setRoom this._id
 
   'click .remove': ->
@@ -29,7 +32,7 @@ Template.room.events =
 
 Template.add_room.events =
   'submit form': (e) ->
-    form = $(e.target)
+    form = $(e.currentTarget)
     data = form.serializeArray()
     params = {}
     _.each data, (field) ->
@@ -41,10 +44,10 @@ Template.add_room.events =
     false
 
 Template.chatroom.messages = ->
-  Messages.find {}, {sort: {created_at: -1}}
+  Messages.find {room_id: Session.get("room_id")}, {sort: {created_at: -1}}
 
 Template.chatroom.events =
-  'click .btn': (e) ->
+  'click [type=submit]': (e) ->
     form = $(e.target).parents('form')
     input = form.find('[name="message"]')
     message = input.val()
@@ -55,6 +58,10 @@ Template.chatroom.events =
       created_at: (new Date()).getTime()
     input.val ""
     false
+
+  'click .leave': ->
+    Session.set "room_id", null
+    Router.goHome
 
 $('.modal').modal
   show: true
