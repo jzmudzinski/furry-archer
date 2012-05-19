@@ -8,3 +8,6 @@ body {
 .modal form {
   margin: 0;
 }
+.messages td:first-child {
+  width: 80px;
+};

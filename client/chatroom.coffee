@@ -3,6 +3,7 @@ Messages = new Meteor.Collection "messages"
 Users = new Meteor.Collection "users"
 
 Meteor.subscribe "rooms"
+Meteor.subscribe "messages"
 Session.set 'room_id', null
 
 Template.main.selected_room = ->
@@ -39,18 +40,20 @@ Template.add_room.events =
     form.parents('.modal').modal('hide')
     false
 
+Template.chatroom.messages = ->
+  Messages.find {}, {sort: {created_at: -1}}
+
 Template.chatroom.events =
   'click .btn': (e) ->
     form = $(e.target).parents('form')
-    alert "aaa"
-    message = form.find('[name="message"]').val()
-    alert "#{message}"
+    input = form.find('[name="message"]')
+    message = input.val()
     console.log "Inserted message #{message}"
-    alert "log"
     Messages.insert
       room_id: Session.get "room_id"
       message: message
-      created_at: (newmo Date()).getTime()
+      created_at: (new Date()).getTime()
+    input.val ""
     false
 
 $('.modal').modal

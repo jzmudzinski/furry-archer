@@ -1,7 +1,9 @@
 <template name="chatroom">
+  <table class="table table-striped messages">
   {{#each messages}}
     {{> message}}
   {{/each}}
+  </table>
   <form class="well form-inline">
     <div>
       <textarea class="span10" name="message"></textarea>
@@ -11,5 +13,8 @@
 </template>
 
 <template name="message">
-
+  <tr>
+    <td>{{created_at}}</td>
+    <td>{{message}}</td>
+  </tr>
 </template>
