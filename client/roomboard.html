@@ -1,0 +1,26 @@
+<template name="roomboard">
+  <h2>Open rooms</h2>
+  {{#each rooms}}
+    {{> room}}
+  {{/each}}
+</template>
+
+<template name="room">
+  <div class="span4">
+    <div class="well">
+      <div class="pull-right">
+        <button class="btn btn-danger btn-mini remove">
+          <i class="icon-trash icon-white"></i> Remove
+        </button>
+      </div>
+      <h1>{{name}}</h1>
+      <!-- <span class="label">{{_id}}</span> -->
+      <p>{{description}}</p>
+      <div>
+        <button class="btn btn-primary btn-big enter">
+          <i class="icon-folder-open icon-white"></i> Enter
+        </button>
+      </p>
+    </div>
+  </div>
+</template>
