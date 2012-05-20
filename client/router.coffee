@@ -1,6 +1,6 @@
 class ChatroomRouter extends Backbone.Router
   routes:
-    "": "goHome"
+    "/": "goHome"
     ":room_id": "setRoom"
 
   goHome: ->

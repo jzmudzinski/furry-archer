@@ -1,12 +1,11 @@
-Rooms = new Meteor.Collection "rooms"
-Messages = new Meteor.Collection "messages"
-Users = new Meteor.Collection "users"
-
-Meteor.subscribe "rooms"
+Meteor.subscribe "allRooms"
+Meteor.autosubscribe ->
+  user_id = Session.get 'user_id'
+  Meteor.subscribe 'userRooms', user_id
 
 Meteor.autosubscribe ->
   room_id = Session.get 'room_id'
-  Meteor.subscribe 'messages', room_id if room_id
+  Meteor.subscribe 'roomMessages', room_id
 
 Session.set 'room_id', null
 
@@ -60,8 +59,8 @@ Template.chatroom.events =
     false
 
   'click .leave': ->
-    Session.set "room_id", null
-    Router.goHome
+    Router.goHome()
+    false
 
 $('.modal').modal
   show: true

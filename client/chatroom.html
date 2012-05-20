@@ -19,6 +19,9 @@
 
         <!-- Everything you want hidden at 940px or less, place within here -->
         <div class="nav-collapse">
+          <form class="navbar-search pull-right">
+            <input type="text" class="search-query" placeholder="Search rooms">
+          </form>
           <ul class="nav">
             <li class="active">
               <a href="/">Home</a>
@@ -45,7 +48,6 @@
 
 <template name="main">
   <div class="span12">
-    {{> page_header}}
     {{# if selected_room}}
       {{> chatroom}}
     {{else}}

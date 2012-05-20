@@ -1,16 +1,17 @@
 <template name="chatroom">
-  <button class="btn btn-error leave pull-right"><i class="icon-home icon-white"></i> Leave Room</button>
-  <table class="table table-striped messages">
-  {{#each messages}}
-    {{> message}}
-  {{/each}}
-  </table>
+  {{> page_header}}
+  <button class="btn btn-inverse leave pull-right"><i class="icon-home icon-white"></i> Leave Room</button>
   <form class="well form-inline">
     <div>
       <textarea class="span10" name="message"></textarea>
       <button type="submit" class="btn btn-success">Send</button>
     </div>
   </form>
+  <table class="table table-striped messages">
+  {{#each messages}}
+    {{> message}}
+  {{/each}}
+  </table>
 </template>
 
 <template name="message">

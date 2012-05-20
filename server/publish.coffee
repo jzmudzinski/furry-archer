@@ -1,13 +1,13 @@
-Rooms = new Meteor.Collection "rooms"
-
-Meteor.publish "rooms", (user_id = null) ->
+Meteor.publish "allRooms", ->
   Rooms.find
     open: true
-    user_id: user_id if user_id
-
-Messages = new Meteor.Collection "messages"
-Meteor.publish "messages", (room_id) ->
+Meteor.publish "userRooms", (user_id) ->
+  Rooms.find
+    user_id: user_id
+Meteor.publish "roomMessages", (room_id) ->
   Messages.find
     room_id: room_id
 
-Users = new Meteor.Collection "users"
+Rooms.restrict_client_access "remove"
+Messages.restrict_client_access "remove"
+Users.restrict_client_access()
