@@ -1,6 +1,6 @@
 ChatroomSession =
   KEYS: ['order', 'selectedRoomPermalink', 'rooms_filter'],
-  KEYS_WITH_EXPLICIT_ACCESSORS: ['order', 'room_name'],
+  KEYS_WITH_EXPLICIT_ACCESSORS: ['order', 'room_name', 'user'],
 
   get: (key) ->
     if _.include(ChatroomSession.KEYS_WITH_EXPLICIT_ACCESSORS, key)
@@ -44,3 +44,15 @@ ChatroomSession =
 
   getOrder: ->
     Session.get 'order'
+
+  # User session management
+  loginUser: (login) ->
+    console.log "login: #{login}"
+    Session.set 'user', login
+    console.log "logged in: #{Session.get('user')}"
+    Session.set 'logged_in_at', (new Date()).toTimeString()
+  logoutUser: ->
+    Session.set 'user', null
+    Session.set 'logged_in_at', null
+  currentUser: ->
+    Session.get 'user'

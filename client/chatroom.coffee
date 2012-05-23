@@ -7,4 +7,3 @@ $ ->
   key 'c', ->
     $('#search-query').focus()
     false
-

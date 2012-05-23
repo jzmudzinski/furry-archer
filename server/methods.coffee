@@ -12,6 +12,16 @@ Meteor.methods
       message: message
       timestamp: ts.getTime()
       created_at: dateformat(ts, "mmmm dd, HH:MM")
+
   loginUser: (login, password) ->
-    console.log login
+    l = ChatroomConfig.ldap.username_prefix + login
+    ldap_client.bind l, password, (err) ->
+      if err?
+        console.log "Ldap Bind Error: #{err}; Login #{l}"
+      else
+        console.log "Ldap Bind Success; login: #{login}"
+        ChatroomSession.loginUser login
+        ldap_client.unbind (unbind_err) ->
+          if unbind_err?
+            console.log "Ldap Unbind Error: #{unbind_err}"
 

@@ -59,3 +59,24 @@ Template.chatroom.events =
   'click .leave': ->
     Router.goHome()
     false
+
+Template.login_links.user_logged_in = ->
+  ChatroomSession.currentUser()?
+
+Template.login_links.events =
+  'click #loginUser': (e) ->
+    $('#loginModal').modal 'show'
+  'click #logoutUser': (e) ->
+    ChatroomSession.setUser null
+
+Template.login_modal.events =
+  'submit form': (e) ->
+    form = $(e.currentTarget)
+    data = form.serializeArray()
+    params = {}
+    _.each data, (field) ->
+      params[field.name] = field.value;
+    Meteor.call 'loginUser', params.login, params.password
+    e.target.reset()
+    form.parents('.modal').modal('hide')
+    false

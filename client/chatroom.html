@@ -28,6 +28,7 @@
               <a data-toggle="modal" href="#createRoomModal">Create room</a>
             </li>
           </ul>
+          {{> login_links}}
           <!-- .nav, .navbar-search, .navbar-form, etc -->
         </div>
 
@@ -41,7 +42,8 @@
     </div>
   </div>
 </div>
-
+{{> add_room}}
+{{> login_modal}}
 </body>
 
 <template name="search_rooms">
@@ -58,5 +60,51 @@
       {{> roomboard}}
     {{/if}}
   </div>
-  {{> add_room}}
+</template>
+
+<template name="login_links">
+  <ul class="nav pull-right">
+    {{#if user_logged_in}}
+    <li>
+      <a href="#" id="logoutUser">Logout</a>
+    </li>
+    {{else}}
+    <li>
+      <a href="#" id="loginUser">Login</a>
+    </li>
+    {{/if}}
+  </ul>
+</template>
+
+<template name="login_modal">
+  <div class="modal hide fade" id="loginModal">
+  <form>
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h3>Login</h3>
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="name">Username</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" name="login">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="name">Password</label>
+            <div class="controls">
+              <input type="password" class="input-xlarge" name="password">
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Cancel</button>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </form>
+  </div>
 </template>
