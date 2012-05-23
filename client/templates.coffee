@@ -60,6 +60,3 @@ Template.chatroom.events =
   'click .leave': ->
     Router.goHome()
     false
-
-$('.modal').modal
-  show: true
