@@ -9,6 +9,6 @@ Meteor.methods
     Messages.insert
       room_permalink: room_permalink
       message: message
-      created_at: (new Date()).getTime()
+      created_at: new Date("dddd, MMMM Do YYYY, h:mm:ss a")
 
 
