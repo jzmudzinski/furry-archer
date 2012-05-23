@@ -1,17 +1,19 @@
 <template name="chatroom">
-  {{> page_header}}
-  <button class="btn btn-inverse leave pull-right"><i class="icon-home icon-white"></i> Leave Room</button>
+  <div class="page-header">
+    <button class="btn btn-inverse leave pull-right"><i class="icon-home icon-white"></i> Leave Room</button>
+    <h1>{{room_name}} <small>{{room_description}}</small></h1>
+  </div>
+  <table class="table table-striped messages">
+  {{#each messages}}
+    {{> message}}
+  {{/each}}
+  </table>
   <form class="well form-inline">
     <div>
       <textarea class="span10" name="message"></textarea>
       <button type="submit" class="btn btn-success">Send</button>
     </div>
   </form>
-  <table class="table table-striped messages">
-  {{#each messages}}
-    {{> message}}
-  {{/each}}
-  </table>
 </template>
 
 <template name="message">

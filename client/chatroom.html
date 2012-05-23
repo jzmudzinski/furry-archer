@@ -19,12 +19,10 @@
 
         <!-- Everything you want hidden at 940px or less, place within here -->
         <div class="nav-collapse">
-          <form class="navbar-search pull-right">
-            <input type="text" class="search-query" placeholder="Search rooms">
-          </form>
+          {{> search_rooms}}
           <ul class="nav">
             <li class="active">
-              <a href="/">Home</a>
+              <a href="/">Rooms</a>
             </li>
             <li>
               <a data-toggle="modal" href="#createRoomModal">Create room</a>
@@ -46,6 +44,12 @@
 
 </body>
 
+<template name="search_rooms">
+<form class="navbar-search pull-right">
+  <input type="search" class="search-query" placeholder="Search rooms">
+</form>
+</template>
+
 <template name="main">
   <div class="span12">
     {{# if selected_room}}
@@ -55,11 +59,4 @@
     {{/if}}
   </div>
   {{> add_room}}
-</template>
-
-<template name="page_header">
-  <div class="page-header">
-    <!-- <a class="btn pull-right" data-toggle="modal" href="#createRoomModal">Create room</a> -->
-    <h1>{{title}} <small>{{description}}</small></h1>
-  </div>
 </template>
