@@ -1,5 +1,3 @@
-dateformat = __meteor_bootstrap__.require "dateformat"
-
 Meteor.methods
   createRoom: (params) ->
     params.permalink = Chatroom.preparePermalink params.name
@@ -14,5 +12,6 @@ Meteor.methods
       message: message
       timestamp: ts.getTime()
       created_at: dateformat(ts, "mmmm dd, HH:MM")
-
+  loginUser: (login, password) ->
+    console.log login
 

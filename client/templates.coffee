@@ -49,7 +49,6 @@ Template.chatroom.room_description = ->
 
 Template.chatroom.events =
   'click [type=submit], keyup textarea': (e) ->
-    console.log e.type
     if e.type == 'keyup' && e.which == 13 && e.shiftKey == false || e.type == 'click'
       input = $('[name="message"]')
       message = input.val()
