@@ -10,4 +10,6 @@ body {
 }
 .messages td:first-child {
   width: 80px;
+  font-size: 9px;
+  color: #666;
 };

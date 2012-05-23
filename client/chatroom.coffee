@@ -1,7 +1,10 @@
 $ ->
   $('.modal').modal
     show: true
-  key 's', ->
+  key 'f', ->
+    $('#search-query').focus()
+    false
+  key 'c', ->
     $('#search-query').focus()
     false
 
