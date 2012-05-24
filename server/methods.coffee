@@ -15,13 +15,20 @@ Meteor.methods
 
   loginUser: (login, password) ->
     l = ChatroomConfig.ldap.username_prefix + login
+    # logged_in = false
+    console.log 1
     ldap_client.bind l, password, (err) ->
+      console.log 2
       if err?
         console.log "Ldap Bind Error: #{err}; Login #{l}"
       else
+        console.log 3
         console.log "Ldap Bind Success; login: #{login}"
-        ChatroomSession.loginUser login
         ldap_client.unbind (unbind_err) ->
           if unbind_err?
             console.log "Ldap Unbind Error: #{unbind_err}"
-
+          else
+            console.log 4
+        logged_in = login
+    console.log 5
+    # logged_in

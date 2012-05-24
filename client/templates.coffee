@@ -62,12 +62,16 @@ Template.chatroom.events =
 
 Template.login_links.user_logged_in = ->
   ChatroomSession.currentUser()?
+Template.login_links.user = ->
+  ChatroomSession.currentUser()
 
 Template.login_links.events =
   'click #loginUser': (e) ->
     $('#loginModal').modal 'show'
+    false
   'click #logoutUser': (e) ->
-    ChatroomSession.setUser null
+    ChatroomSession.logoutUser()
+    false
 
 Template.login_modal.events =
   'submit form': (e) ->
@@ -76,7 +80,12 @@ Template.login_modal.events =
     params = {}
     _.each data, (field) ->
       params[field.name] = field.value;
-    Meteor.call 'loginUser', params.login, params.password
+    Meteor.call 'loginUser', params.login, params.password, (err, res) ->
+      if err?
+        console.log "Meteor#loginUser error: #{err}"
+      else
+        console.log "loginUser res: " + res
+        ChatroomSession.loginUser res
     e.target.reset()
     form.parents('.modal').modal('hide')
     false

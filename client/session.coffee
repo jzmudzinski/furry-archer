@@ -45,14 +45,32 @@ ChatroomSession =
   getOrder: ->
     Session.get 'order'
 
-  # User session management
+  setSession: (session_id) ->
+    Session.set "session_id", session_id
+    if $.cookies.get '_chatroom_session_id' != session_id
+      $.cookies.set '_chatroom_session_id', session_id
+  dropSession: ->
+    Session.set "session_id", null
+    $.cookies.set '_chatroom_session_id', null
+  getSession: ->
+    Sessions.findOne
+      _id: Session.get "session_id"
+
   loginUser: (login) ->
     console.log "login: #{login}"
-    Session.set 'user', login
-    console.log "logged in: #{Session.get('user')}"
-    Session.set 'logged_in_at', (new Date()).toTimeString()
+    id = Sessions.insert
+      user: login
+      logged_in_at: (new Date()).toTimeString()
+    ChatroomSession.setSession id
   logoutUser: ->
-    Session.set 'user', null
-    Session.set 'logged_in_at', null
+    console.log "logging out"
+    ChatroomSession.dropSession()
+  # TODO: create user in users collection
   currentUser: ->
-    Session.get 'user'
+    session = ChatroomSession.getSession()
+    console.log session
+    if session?
+      session.user
+    else
+      null
+

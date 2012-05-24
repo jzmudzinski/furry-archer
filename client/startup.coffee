@@ -1,10 +1,15 @@
 Meteor.startup ->
   ChatroomSession.setOrder 'popular'
+  ChatroomSession.setSession $.cookies.get '_chatroom_session_id'
 
   Meteor.subscribe "allRooms"
   Meteor.autosubscribe ->
-    user_id = Session.get 'user_id'
-    Meteor.subscribe 'userRooms', user_id
+    user_login = ChatroomSession.currentUser
+    Meteor.subscribe 'userRooms', user_login
+
+  Meteor.autosubscribe ->
+    user_login = ChatroomSession.currentUser
+    Meteor.subscribe 'userSessions', user_login
 
   Meteor.autosubscribe ->
     room_permalink = ChatroomSession.getSelectedRoomPermalink()
